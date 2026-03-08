@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kai – Kia Portland Lead Assistant</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🚗</span>
+        <div>
+          <span class="logo-title">Kai</span>
+          <span class="logo-sub">Kia of Portland · Lead Assistant</span>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="chat">💬 AI Chat</button>
+        <button class="tab" data-tab="leads">📋 My Leads</button>
+        <button class="tab" data-tab="tips">💡 Playbook</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- ══ CHAT TAB ════════════════════════════════════════════════════════ -->
+    <section id="tab-chat" class="tab-content active">
+      <div class="chat-layout">
+        <div class="chat-panel">
+          <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+              <div class="avatar">K</div>
+              <div class="bubble">
+                <p>Hey! I'm <strong>Kai</strong>, your AI sales assistant for Kia of Portland. 🎉</p>
+                <p>I can help you:</p>
+                <ul>
+                  <li>🔍 Identify &amp; qualify hot prospects in Portland</li>
+                  <li>📊 Score leads (🔥 HOT / ⚡ WARM / ❄️ COLD)</li>
+                  <li>✉️ Generate personalized outreach scripts</li>
+                  <li>💬 Handle objections &amp; close faster</li>
+                </ul>
+                <p>Tell me about a prospect, or ask me anything!</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <textarea
+              id="userInput"
+              placeholder="Describe a prospect or ask me anything… e.g. 'Sarah, 32, commutes from NE Portland, budget $35k, interested in an EV'"
+              rows="2"
+            ></textarea>
+            <button id="sendBtn" class="btn-primary">Send</button>
+          </div>
+          <div class="quick-prompts">
+            <span class="qp-label">Quick prompts:</span>
+            <button class="qp" data-prompt="What questions should I ask a new walk-in customer to qualify them fast?">Qualify walk-in</button>
+            <button class="qp" data-prompt="Generate a cold outreach text for someone who showed interest in the Kia EV6 online but hasn't responded.">EV6 follow-up</button>
+            <button class="qp" data-prompt="What are the best-selling Kia models for Portland buyers right now and why?">Best sellers</button>
+            <button class="qp" data-prompt="How do I handle a customer who says 'I need to think about it'?">Objection help</button>
+            <button class="qp" data-prompt="Give me a list of qualifying questions to find out if someone is a hot lead ready to buy this week.">Hot lead questions</button>
+          </div>
+        </div>
+
+        <!-- Save-lead sidebar -->
+        <div class="save-panel">
+          <h3>💾 Save Lead</h3>
+          <p class="save-hint">Capture a prospect from the conversation.</p>
+          <form id="leadForm">
+            <label>Name *</label>
+            <input type="text" id="lName" placeholder="Sarah Johnson" required />
+            <label>Phone</label>
+            <input type="tel" id="lPhone" placeholder="503-555-0100" />
+            <label>Email</label>
+            <input type="email" id="lEmail" placeholder="sarah@email.com" />
+            <label>Vehicle Interest</label>
+            <input type="text" id="lVehicle" placeholder="EV6, Telluride, Sportage…" />
+            <label>Budget</label>
+            <input type="text" id="lBudget" placeholder="$30k–$40k" />
+            <label>Timeline</label>
+            <select id="lTimeline">
+              <option value="">Select…</option>
+              <option>This week</option>
+              <option>Within 30 days</option>
+              <option>1–3 months</option>
+              <option>Just browsing</option>
+            </select>
+            <label>Lead Temp</label>
+            <select id="lTemp">
+              <option value="HOT">🔥 HOT – Buying now</option>
+              <option value="WARM">⚡ WARM – Soon</option>
+              <option value="COLD">❄️ COLD – Nurture</option>
+            </select>
+            <label>Notes</label>
+            <textarea id="lNotes" rows="3" placeholder="Trade-in? Credit? Family size?"></textarea>
+            <button type="submit" class="btn-primary full-width">Save Lead</button>
+          </form>
+          <div id="saveMsg" class="save-msg hidden">✅ Lead saved!</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ LEADS TAB ══════════════════════════════════════════════════════ -->
+    <section id="tab-leads" class="tab-content hidden">
+      <div class="leads-header">
+        <h2>My Leads</h2>
+        <div class="lead-filters">
+          <button class="filter-btn active" data-filter="ALL">All</button>
+          <button class="filter-btn" data-filter="HOT">🔥 HOT</button>
+          <button class="filter-btn" data-filter="WARM">⚡ WARM</button>
+          <button class="filter-btn" data-filter="COLD">❄️ COLD</button>
+        </div>
+      </div>
+      <div id="leadsGrid" class="leads-grid">
+        <p class="empty-state">No leads yet. Start a conversation and save your prospects!</p>
+      </div>
+    </section>
+
+    <!-- ══ PLAYBOOK TAB ═══════════════════════════════════════════════════ -->
+    <section id="tab-tips" class="tab-content hidden">
+      <div class="playbook">
+        <h2>🎯 Portland Kia Sales Playbook</h2>
+
+        <div class="playbook-grid">
+          <div class="card">
+            <h3>🗺️ Portland Buyer Segments</h3>
+            <ul>
+              <li><strong>NE/SE Portland Young Professionals</strong> – Eco-conscious, love EVs. Push <em>EV6, Niro EV, Soul</em>.</li>
+              <li><strong>Beaverton/Hillsboro Families</strong> – Need space & safety. Push <em>Sorento, Telluride, Carnival</em>.</li>
+              <li><strong>SW Portland Commuters</strong> – Fuel efficiency. Push <em>Forte, Sportage Hybrid, Niro HEV</em>.</li>
+              <li><strong>Gresham/East County</strong> – Value-focused. Push <em>Rio, Forte, Sportage</em> with strong financing.</li>
+              <li><strong>Lake Oswego / West Linn</strong> – Premium buyers. Push <em>EV6 GT-Line, Telluride SX-P</em>.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>🔥 Hot Lead Signals</h3>
+            <ul>
+              <li>Has a specific vehicle in mind</li>
+              <li>Mentions being pre-approved or cash buyer</li>
+              <li>Current car is broken, sold, or lease ending</li>
+              <li>Asking about availability / color options</li>
+              <li>Has visited the lot before</li>
+              <li>Timeline: "this week" or "ASAP"</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>💬 Killer Opening Lines</h3>
+            <ul>
+              <li>"Hey [Name]! Saw you were checking out the EV6 — Portland just got a new state EV rebate, want me to run the numbers?"</li>
+              <li>"The Telluride you looked at has only 2 left on our lot. Want to hold one?"</li>
+              <li>"With gas prices in Portland averaging $4/gal, the Sportage Hybrid pays for itself fast!"</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>🛡️ Objection Busters</h3>
+            <ul>
+              <li><strong>"I'm just looking"</strong> → "No pressure! What would need to be true for you to pull the trigger today?"</li>
+              <li><strong>"Too expensive"</strong> → "What's your monthly budget? I have financing starting at $299/mo."</li>
+              <li><strong>"Need to think about it"</strong> → "Totally fair — what's the #1 thing holding you back?"</li>
+              <li><strong>"My spouse needs to see it"</strong> → "Great — want to bring them in today? We have refreshments!"</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>⚡ 5-Step Fast Qualifier</h3>
+            <ol>
+              <li>What brings you in / what caught your eye?</li>
+              <li>What are you driving now — and what do you love/hate about it?</li>
+              <li>What's your must-have in your next car?</li>
+              <li>Are you looking to own or lease, and have you looked at financing yet?</li>
+              <li>If we found the perfect car today, is there anything stopping you from driving home in it?</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>🌧️ Portland EV Advantage</h3>
+            <ul>
+              <li>Oregon Clean Vehicle Rebate: up to <strong>$7,500</strong></li>
+              <li>Federal Tax Credit: up to <strong>$7,500</strong> on eligible EVs</li>
+              <li>PGE / Pacific Power EV charging incentives</li>
+              <li>Portland has 500+ public chargers</li>
+              <li>Kia EV6 rated <strong>#1 EV under $45k</strong> by Car &amp; Driver</li>
+            </ul>
+            <p class="disclaimer">⚠️ Incentive amounts subject to change — verify current figures at <a href="https://oregoncleanvehiclerebate.org" target="_blank" rel="noopener">oregoncleanvehiclerebate.org</a> and IRS.gov before quoting customers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Script modal -->
+  <div id="scriptModal" class="modal hidden">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose">✕</button>
+      <h3>📨 Generated Outreach Script</h3>
+      <pre id="scriptContent"></pre>
+      <button class="btn-primary" id="copyScript">📋 Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
